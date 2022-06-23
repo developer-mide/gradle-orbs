@@ -1,6 +1,5 @@
 description: >
-  This is a sample executor using Docker and Node. If you want to provide a custom environment in your orb, insert your image here.
-  If you do not require an executor, you can simply delete this directory.       
+   Executors for our gradle-orb.
 docker:
    - image: cimg/openjdk:18.0.1
    - image: cimg/redis:6.2
