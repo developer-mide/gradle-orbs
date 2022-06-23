@@ -1,5 +1,12 @@
 description: >
    Executors for our gradle-orb.
 docker:
-   - image: 'cimg/openjdk:18.0.1'
+   - image: 'cimg/openjdk:<< parameters.tag >>'
    - image: 'cimg/redis:6.2'
+parameters:
+  tag:
+    default: '18.0.1'
+    description: >
+      Pick a specific cimg/node image variant:
+      https://hub.docker.com/r/cimg/node/tags
+    type: string
