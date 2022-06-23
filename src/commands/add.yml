@@ -1,0 +1,18 @@
+description: >
+  Add two numbers and provide us a result.
+# What will this command do?
+# Descriptions should be short, simple, and clear.
+parameters:
+  numA:
+    type: string
+    description: "First number"
+  numB:
+    type: string
+    description: "Second number"
+steps:
+  - run:
+      environment:
+        PARAM_NUMA: <<parameters.numA>>
+        PARAM_NUMB: <<parameters.numB>>
+      name: Add numbers
+      command: <<include(scripts/add.sh)>>
