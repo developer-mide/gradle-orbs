@@ -1,7 +1,6 @@
 description: >
    this document doesn't contain.
-   any trailing.
-   spaces.            
+   any trailing.            
 docker:
    - image: cimg/openjdk:18.0.1
    - image: cimg/redis:6.2
