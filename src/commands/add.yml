@@ -4,10 +4,10 @@ description: >
 # Descriptions should be short, simple, and clear.
 parameters:
   numA:
-    type: string
+    type: integer
     description: "First number"
   numB:
-    type: string
+    type: integer
     description: "Second number"
 steps:
   - run:
