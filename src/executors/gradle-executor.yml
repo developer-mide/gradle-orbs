@@ -9,4 +9,4 @@ parameters:
     description: >
       Pick a specific cimg/node image variant:
       https://hub.docker.com/r/cimg/node/tags
-    type: string
+    type: string \n
