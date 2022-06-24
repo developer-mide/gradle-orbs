@@ -1,5 +1,12 @@
 description: >
     Backend build job for gradle-tests
+docker:
+      - image: cimg/openjdk:18.0.1
+        name: gradle-image
+      - image: cimg/redis:6.2
+        name: redis
+      - image: cimg/postgres:13.4
+        name: postgres
 steps:
   - shallow-checkout
   - attach_workspace
