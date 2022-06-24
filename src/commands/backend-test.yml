@@ -15,4 +15,22 @@ steps:
         at: /tmp/workspace
     - run:
         name: setup_gradle_ci_init
-        command: << include(scripts/initialize-gradle-dir.sh) >>
+        command: << include(scripts/initialize-gradle.sh) >>
+    - run:
+        name: install dockerize
+        command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+        environment:
+            DOCKERIZE_VERSION: v0.6.1
+    - run:
+        name:
+        environment:
+           ENVIRONMENT: TEST
+           IS_CI_CD: "true"
+           PROJECT: << parameters.project >>
+           TEST_NAME: << parameters.test_name >>
+        command: <<include(scripts/gradle-tests.sh)>>
+    - run:
+        name: Ensure that test results were generated
+        environment:
+           RESULTS_PATH: /tmp/gradle-build/brace/<< parameters.buildSubdir >>/ci-checkpoint/success.txt
+        command: stat $RESULTS_PATH
