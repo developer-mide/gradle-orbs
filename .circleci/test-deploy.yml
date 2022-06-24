@@ -13,7 +13,6 @@ jobs:
   command-tests:
     docker:
       - image: cimg/base:current
-      - image: gradle:7.4-jdk17
     steps:
       - checkout
       # Run your orb's commands to validate them.
