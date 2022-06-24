@@ -1,5 +1,6 @@
-description: Attach workspace to project.
-
+description: >
+    description: Attach workspace to project.
 steps:
-  - attach_workspace:
-        at: /tmp/workspace
+   - attach_workspace:
+          at: /tmp/workspace
+

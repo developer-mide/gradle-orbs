@@ -1,6 +1,6 @@
-description: generate_gradle_cache_seed
-
+description: generate gradle cache seed
 steps:
-  - run:
-      name: generate_gradle_cache_seed
-      command: << include(scripts/generate-gradle-seed.sh) >>
+   - run:
+       name: gradle cache seed
+       command: << include(scripts/generate-gradle-seed.sh) >>
+
