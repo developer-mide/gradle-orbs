@@ -2,6 +2,7 @@ version: 2.1
 orbs:
   my-gradle-orb: my-orbs/my-gradle-orb@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.1
+  gradle: circleci/gradle@2.2.0
 
 filters: &filters
   tags:
@@ -20,6 +21,7 @@ jobs:
            numA: 3
            numB: 4
       - my-gradle-orb/backend-test
+
 
 workflows:
   test-deploy:

@@ -1,12 +1,12 @@
 description: >
     Backend tests for the gradle build
-# parameters:
-#     project:
-#       type: string
-#     buildSubdir:
-#       type: string
-#     test_name:
-#       type: string
+parameters:
+    project:
+      type: string
+    buildSubdir:
+      type: string
+    test_name:
+      type: string
 steps:
     - run:
         name: Shallow Checkout
@@ -30,3 +30,11 @@ steps:
         environment:
            RESULTS_PATH: /tmp/gradle-build/brace/<< parameters.buildSubdir >>/ci-checkpoint/success.txt
         command: stat $RESULTS_PATH
+    - save_cache:
+        paths:
+        - "~/.gradle/caches"
+        - "~/.gradle/wrapper"
+        key: gradle-v1-{{ checksum "/tmp/gradle_cache_seed" }}-{{ checksum ".circleci/config.yml" }}
+    - gradle/collect_test_results:
+        test_results_path: /tmp/gradle-build/brace/<< parameters.buildSubdir >>/test-results
+        reports_path: /tmp/gradle-build/brace/<< parameters.buildSubdir >>/reports/tests/<< parameters.test_name >>/
