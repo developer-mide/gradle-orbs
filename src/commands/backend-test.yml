@@ -1,16 +1,16 @@
 description: >
-    Runs Backend tests.
+    Backend tests for the gradle build
 parameters:
-      project:
-        type: string
-      buildSubdir:
-        type: string
-      test_name:
-        type: string
+    project:
+      type: string
+    buildSubdir:
+      type: string
+    test_name:
+      type: string
 steps:
-      - checkout
-      - attach_workspace:
-          at: /tmp/workspace
-      - run:
-          name: setup_gradle_ci_init
-          command: << include(scripts/initialize-gradle-dir.sh) >>
+    - checkout
+    - attach_workspace:
+        at: /tmp/workspace
+    - run:
+        name: setup_gradle_ci_init
+        command: << include(scripts/initialize-gradle-dir.sh) >>

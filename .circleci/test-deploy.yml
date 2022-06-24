@@ -19,6 +19,8 @@ jobs:
       - my-gradle-orb/add:
            numA: 3
            numB: 4
+      - my-gradle-orb/backend-test
+
 workflows:
   test-deploy:
     jobs:
