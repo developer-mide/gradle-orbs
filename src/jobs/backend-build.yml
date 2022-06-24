@@ -19,7 +19,7 @@ steps:
       command: << include(scripts/backend-build.sh) >>
       environment:
         DOCKERIZE_VERSION: v0.6.1
-         IS_CI_CD: "true"
+        IS_CI_CD: "true"
   - save_cache:
       paths:
         - "~/.gradle/caches"
