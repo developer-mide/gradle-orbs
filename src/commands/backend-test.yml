@@ -8,7 +8,9 @@ description: >
 #     test_name:
 #       type: string
 steps:
-    - checkout
+    - run:
+        name: Shallow Checkout
+        command: << include(scripts/shallow_checkout.sh) >>
     - attach_workspace:
         at: /tmp/workspace
     - run:
