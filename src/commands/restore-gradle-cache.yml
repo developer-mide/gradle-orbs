@@ -1,5 +1,6 @@
-description: restore gradle cache
-
+description: >
+     Restore the gradle cache.
 steps:
    - restore_cache:
         key: gradle-v1-{{ checksum "/tmp/gradle_cache_seed" }}-{{ checksum ".circleci/config.yml" }}
+

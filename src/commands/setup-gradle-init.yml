@@ -1,6 +1,7 @@
-description:  setup_gradle_ci_init
-
+description: >
+     Setup Gradle Cache.
 steps:
-  - run:
-      name: setup_gradle_ci_init
-      command: << include(scripts/setup-gradle-init.sh) >>
+   - run:
+       name: setup-gradle-cache
+       command: << include(scripts/setup-gradle-init.sh) >>
+
