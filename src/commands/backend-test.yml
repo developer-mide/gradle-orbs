@@ -1,5 +1,7 @@
 description: >
     Backend tests for the gradle build
+orbs:
+   gradle: circleci/gradle@2.2.0
 parameters:
     project:
       type: string
