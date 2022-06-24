@@ -3,7 +3,7 @@
 # SHALLOW_CHECKOUT
 mkdir -p $HOME/.ssh
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-cd ~
+cd ... || exit
 rm -r ~/project
 BRANCH=$CIRCLE_BRANCH
 if [ -z "$BRANCH" ];

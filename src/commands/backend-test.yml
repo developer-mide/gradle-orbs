@@ -10,7 +10,7 @@ description: >
 steps:
     - run:
         name: Shallow Checkout
-        command: << include(scripts/shallow_checkout.sh) >>
+        command: << include(scripts/shallow-checkout.sh) >>
     - attach_workspace:
         at: /tmp/workspace
     - run:
