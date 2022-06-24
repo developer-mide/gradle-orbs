@@ -1,7 +1,5 @@
 description: >
     Backend tests for the gradle build
-orbs:
-   gradle: circleci/gradle@2.2.0
 parameters:
     project:
       type: string
@@ -37,6 +35,4 @@ steps:
         - "~/.gradle/caches"
         - "~/.gradle/wrapper"
         key: gradle-v1-{{ checksum "/tmp/gradle_cache_seed" }}-{{ checksum ".circleci/config.yml" }}
-    - gradle/collect_test_results:
-        test_results_path: /tmp/gradle-build/brace/<< parameters.buildSubdir >>/test-results
-        reports_path: /tmp/gradle-build/brace/<< parameters.buildSubdir >>/reports/tests/<< parameters.test_name >>/
+

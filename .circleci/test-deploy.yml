@@ -21,6 +21,9 @@ jobs:
            numA: 3
            numB: 4
       - my-gradle-orb/backend-test
+      - gradle/collect_test_results:
+          test_results_path: /tmp/gradle-build/brace/<< parameters.buildSubdir >>/test-results
+          reports_path: /tmp/gradle-build/brace/<< parameters.buildSubdir >>/reports/tests/<< parameters.test_name >>/
 
 
 workflows:
