@@ -9,8 +9,8 @@ dockerize -wait tcp://postgres:5432 -timeout 2m
 # Build all shadowDistTars
 # Gradle automatically pushes this command upward and calls shadowDistTar in all projects from this
 export CI_COMMIT_SHA="${CIRCLE_SHA1}"
-TMP_WORKSPACE_GIT_DESCRIBE = cat /tmp/workspace/git/describe
-export GIT_DESCRIBE = "${TMP_WORKSPACE_GIT_DESCRIBE}"
+TMP_WORKSPACE_GIT_DESCRIBE = $(cat /tmp/workspace/git/describe)
+export GIT_DESCRIBE = $TMP_WORKSPACE_GIT_DESCRIBE
 # export GIT_DESCRIBE=$(cat /tmp/workspace/git/describe)
 gradle shadowDistTar --build-cache --parallel
 
