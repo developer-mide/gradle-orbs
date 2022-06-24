@@ -1,12 +1,12 @@
 description: >
     Backend tests for the gradle build
-parameters:
-    project:
-      type: string
-    buildSubdir:
-      type: string
-    test_name:
-      type: string
+# parameters:
+#     project:
+#       type: string
+#     buildSubdir:
+#       type: string
+#     test_name:
+#       type: string
 steps:
     - checkout
     - attach_workspace:
