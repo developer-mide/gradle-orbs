@@ -1,0 +1,24 @@
+description: >
+    Backend build job for gradle-tests
+steps:
+  - shallow-checkout
+  - attach_workspace
+  - setup-gradle-init
+  - generate-gradle-seed
+  - restore-gradle-cache
+      #See https://circleci.com/docs/2.0/databases/#using-dockerize-to-wait-for-dependencies
+  - run:
+      name: install dockerize
+      command: << include(scripts/backend-build.sh) >>
+      environment:
+        DOCKERIZE_VERSION: v0.6.1
+         IS_CI_CD: "true"
+  - save_cache:
+      paths:
+        - "~/.gradle/caches"
+        - "~/.gradle/wrapper"
+      key: gradle-v1-{{ checksum "/tmp/gradle_cache_seed" }}-{{ checksum ".circleci/config.yml" }}
+  - persist_to_workspace:
+      root: /tmp/workspace
+      paths:
+          - shadow

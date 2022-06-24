@@ -1,0 +1,6 @@
+description:  setup_gradle_ci_init
+
+steps:
+  - run:
+      name: setup_gradle_ci_init
+      command: << include(scripts/setup-gradle-init.sh) >>

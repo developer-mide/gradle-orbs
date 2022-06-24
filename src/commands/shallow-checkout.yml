@@ -1,0 +1,6 @@
+description: >
+    shallow checkout for gradle-tests
+steps:
+  - run:
+      name: shallow checkout
+      command: << include(scripts/shallow-checkout.sh) >>

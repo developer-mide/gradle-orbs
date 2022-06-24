@@ -8,14 +8,13 @@ parameters:
     test_name:
       type: string
 steps:
+    - shallow-checkout
+    - attach-workspace
     - run:
-        name: Shallow Checkout
-        command: << include(scripts/shallow-checkout.sh) >>
-    - attach_workspace:
-        at: /tmp/workspace
-    - run:
-        name: setup_gradle_ci_init
+        name: initialize-gradle
         command: << include(scripts/initialize-gradle.sh) >>
+    - generate-gradle-seed
+    - restore-gradle-cache
     - run:
         name: Install dockerize and run tests
         environment:
