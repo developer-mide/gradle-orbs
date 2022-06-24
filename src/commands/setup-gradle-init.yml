@@ -1,5 +1,4 @@
-description: >
-     Setup Gradle Cache.
+description: Setup Gradle Cache.
 steps:
    - run:
        name: setup-gradle-cache
