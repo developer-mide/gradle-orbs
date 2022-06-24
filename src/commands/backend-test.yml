@@ -24,7 +24,7 @@ steps:
            IS_CI_CD: "true"
            PROJECT: << parameters.project >>
            TEST_NAME: << parameters.test_name >>
-        command: <<include(scripts/gradle-tests.sh)>>
+        command: <<include(scripts/run-tests.sh)>>
     - run:
         name: Ensure that test results were generated
         environment:
