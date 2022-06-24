@@ -1,4 +1,4 @@
-description: >
-    Gradle build executor for gradle tests and builds
-docker:
-  - image: gradle:7.4-jdk17
+# description: >
+#     Gradle build executor for gradle tests and builds
+# docker:
+#   - image: gradle:7.4-jdk17
