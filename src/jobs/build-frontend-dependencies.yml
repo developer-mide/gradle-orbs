@@ -1,0 +1,30 @@
+description: >
+    Backend build for Rush builds
+executor: node-executor
+working_directory: ~/project/frontend
+steps:
+    - shallow-checkout
+    - attach-workspace
+    - run:
+          name: Generate pnpm cache file to checksum
+          command: << include(scripts/generate-pnpm.sh) >>
+    - restore_cache:
+        keys:
+          - pnpm-6-{{ checksum "/tmp/pnpm_lock_seed" }}
+    - restore_cache:
+        keys:
+          - rush-{{ checksum "~/project/frontend/rush.json" }}
+    - run: node common/scripts/install-run-rush.js install
+    - run: mkdir build
+    - run:
+        name: Build Dependencies
+        command: << include(scripts/rush-build-dep.sh) >>
+    - save_cache:
+        key: rush-{{ checksum "~/project/frontend/rush.json" }}
+        paths:
+          - common/temp/install-run
+          - ~/.rush
+    - save_cache:
+        key: pnpm-6-{{ checksum "/tmp/pnpm_lock_seed" }}
+        paths:
+          - common/temp/pnpm-store

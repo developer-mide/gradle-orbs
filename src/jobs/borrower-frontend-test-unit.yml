@@ -1,0 +1,26 @@
+description: >
+    Borrower frontend tests unit job.
+executor: node-executor
+working_directory: ~/project/frontend
+steps:
+    - shallow-checkout
+    - attach-workspace
+    - run:
+        name: Generate pnpm cache file to checksum
+        command: << include(scripts/generate-pnpm.sh) >>
+    - restore_cache:
+          keys:
+            - pnpm-6-{{ checksum "/tmp/pnpm_lock_seed" }}
+    - restore_cache:
+          keys:
+            - rush-{{ checksum "~/project/frontend/rush.json" }}
+    - run:
+          name: Install and Build Dependencies
+          command: << include(scripts/rush-install-dep.sh) >>
+    - run:
+          name: Run Unit Tests
+          command: |
+            cd clients/borrower-frontend
+            npm test
+    - store_test_results:
+          path: clients/borrower-frontend/reports
