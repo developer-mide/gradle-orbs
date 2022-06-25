@@ -6,16 +6,20 @@ steps:
     - shallow-checkout
     - attach-workspace
     - run:
-          name: Generate pnpm cache file to checksum
-          command: << include(scripts/generate-pnpm.sh) >>
+        name: Generate pnpm cache file to checksum
+        command: << include(scripts/generate-pnpm.sh) >>
     - restore_cache:
         keys:
           - pnpm-6-{{ checksum "/tmp/pnpm_lock_seed" }}
     - restore_cache:
         keys:
           - rush-{{ checksum "~/project/frontend/rush.json" }}
-    - run: node common/scripts/install-run-rush.js install
-    - run: mkdir build
+    - run:
+        name: install run rush
+        command: node common/scripts/install-run-rush.js install
+    - run:
+        name: Make build directory
+        command: mkdir build
     - run:
         name: Build Dependencies
         command: << include(scripts/rush-build-dep.sh) >>

@@ -8,30 +8,30 @@ steps:
     - run:
           name: Generate pnpm cache file to checksum
           command: << include(scripts/generate-pnpm.sh) >>
-      - restore_cache:
+    - restore_cache:
           keys:
             - pnpm-6-{{ checksum "/tmp/pnpm_lock_seed" }}
-      - restore_cache:
+    - restore_cache:
           keys:
             - rush-{{ checksum "~/project/frontend/rush.json" }}
-      - run: node common/scripts/install-run-rush.js install
-      - run: mkdir build
-      - run:
-          name: Build Frontends
-          command: << include(scripts/rush-build-frontend.sh)	>>
-      - run: mkdir -p /tmp/workspace/borrower && mkdir -p /tmp/workspace/servicer
-      - run: mv ./clients/borrower-frontend/build/ /tmp/workspace/borrower/
-      - run: mv ./clients/servicer/build/ /tmp/workspace/servicer/
-      - save_cache:
+    - run: node common/scripts/install-run-rush.js install
+    - run: mkdir build
+    - run:
+        name: Build Frontends
+        command: << include(scripts/rush-build-frontend.sh)	>>
+    - run: mkdir -p /tmp/workspace/borrower && mkdir -p /tmp/workspace/servicer
+    - run: mv ./clients/borrower-frontend/build/ /tmp/workspace/borrower/
+    - run: mv ./clients/servicer/build/ /tmp/workspace/servicer/
+    - save_cache:
           key: rush-{{ checksum "~/project/frontend/rush.json" }}
           paths:
             - common/temp/install-run
             - ~/.rush
-      - save_cache:
+    - save_cache:
           key: pnpm-6-{{ checksum "/tmp/pnpm_lock_seed" }}
           paths:
             - common/temp/pnpm-store
-      - persist_to_workspace:
+    - persist_to_workspace:
           root: /tmp/workspace
           paths:
             - borrower
