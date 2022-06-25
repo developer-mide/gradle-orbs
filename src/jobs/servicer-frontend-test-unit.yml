@@ -16,9 +16,7 @@ steps:
             - rush-{{ checksum "~/project/frontend/rush.json" }}
     - run:
           name: Install and Build Dependencies
-          command: |
-            node common/scripts/install-run-rush.js install
-            << include(scripts/rush-build-dep.sh) >>
+          command: << include(scripts/rush-install-dep.sh) >>
     - run:
           name: Run Unit Tests
           command: |

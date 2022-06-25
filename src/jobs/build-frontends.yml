@@ -14,14 +14,24 @@ steps:
     - restore_cache:
           keys:
             - rush-{{ checksum "~/project/frontend/rush.json" }}
-    - run: node common/scripts/install-run-rush.js install
-    - run: mkdir build
+    - run:
+        name: Install run rush.js
+        command: node common/scripts/install-run-rush.js install
+    - run:
+        name: Make build dir
+        command: mkdir build
     - run:
         name: Build Frontends
         command: << include(scripts/rush-build-frontend.sh)	>>
-    - run: mkdir -p /tmp/workspace/borrower && mkdir -p /tmp/workspace/servicer
-    - run: mv ./clients/borrower-frontend/build/ /tmp/workspace/borrower/
-    - run: mv ./clients/servicer/build/ /tmp/workspace/servicer/
+    - run:
+         name: Make directories
+         command: mkdir -p /tmp/workspace/borrower && mkdir -p /tmp/workspace/servicer
+    - run:
+        name: Move build files
+        command: mv ./clients/borrower-frontend/build/ /tmp/workspace/borrower/
+    - run:
+        name: Move build files
+        command: mv ./clients/servicer/build/ /tmp/workspace/servicer/
     - save_cache:
           key: rush-{{ checksum "~/project/frontend/rush.json" }}
           paths:
