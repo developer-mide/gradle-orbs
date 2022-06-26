@@ -22,7 +22,7 @@ steps:
         command: mkdir build
     - run:
         name: Build Frontends
-        command: << include(scripts/rush-build-frontend.sh)	>>
+        command: << include(scripts/rush-build-frontend.sh) >>
     - run:
          name: Make directories
          command: << include(scripts/rush-make-dir.sh) >>
