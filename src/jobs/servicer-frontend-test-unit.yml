@@ -7,7 +7,7 @@ steps:
     - attach-workspace
     - run:
           name: Generate pnpm cache file to checksum
-          command: << include (scripts/generate-pnpm.sh) >>
+          command: << include(scripts/generate-pnpm.sh) >>
     - restore_cache:
           keys:
             - pnpm-6-{{ checksum "/tmp/pnpm_lock_seed" }}

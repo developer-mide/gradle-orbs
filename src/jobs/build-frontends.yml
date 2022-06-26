@@ -25,7 +25,7 @@ steps:
         command: << include(scripts/rush-build-frontend.sh)	>>
     - run:
          name: Make directories
-         command: mkdir -p /tmp/workspace/borrower && mkdir -p /tmp/workspace/servicer
+         command: << include(scripts/rush-make-dir.sh) >>
     - run:
         name: Move build files
         command: mv ./clients/borrower-frontend/build/ /tmp/workspace/borrower/

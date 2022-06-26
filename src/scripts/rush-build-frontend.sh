@@ -1,5 +1,5 @@
 #!/bin/bash
-BUILD_DATE=""$(date)"
+BUILD_DATE="$(date)"
 export BUILD_TIME_STAMP=$BUILD_DATE
 TMP_WORKSPACE_GIT_DESCRIBE=$(cat /tmp/workspace/git/describe)
 export GIT_DESCRIBE=$TMP_WORKSPACE_GIT_DESCRIBE
