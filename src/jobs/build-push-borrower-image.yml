@@ -12,4 +12,3 @@ steps:
           project: "borrower-api-vertx"
           override_repo: "borrower-api"
           tag: << parameters.tag >>
-      - *SLACK_NOTIFY_FAIL

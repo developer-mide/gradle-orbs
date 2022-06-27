@@ -5,17 +5,17 @@
           # Selectively export the SUDO command, depending if we have permission
           # for a directory and whether we're running alpine.
           if [[ $EUID == 0 ]]; then export SUDO=""; else # Check if we're root
-            if cat /etc/issue | grep Alpine > /dev/null 2>&1 || ! [[ -w "<< parameters.install-dir >>" ]]; then
+            if cat /etc/issue | grep Alpine > /dev/null 2>&1 || ! [[ -w "${INSTALL_DIR}" ]]; then
               export SUDO="sudo";
             fi
           fi
 
           # If our first mkdir didn't succeed, we needed to run as sudo.
-          if [ ! -w << parameters.install-dir >> ]; then
-            $SUDO mkdir -p << parameters.install-dir >>
+          if [ ! -w ${INSTALL_DIR} ]; then
+            $SUDO mkdir -p ${INSTALL_DIR}
           fi
 
-          echo 'export PATH=$PATH:<< parameters.install-dir >>' >> $BASH_ENV
+          echo 'export PATH=$PATH:${INSTALL_DIR}' >> $BASH_ENV
           source $BASH_ENV
 
           # check if jq needs to be installed
@@ -23,7 +23,7 @@
 
               echo "jq is already installed..."
 
-            if [[ <<parameters.override>> == true ]]; then
+            if [[ ${OVERRIDE} == true ]]; then
               echo "removing it."
               $SUDO rm -f $(command -v jq)
             else
@@ -33,7 +33,7 @@
           fi
 
           # Set jq version
-          if [[ <<parameters.version>> == "latest" ]]; then
+          if [[ ${VERSION} == "latest" ]]; then
             JQ_VERSION=$(curl -Ls -o /dev/null -w %{url_effective} "https://github.com/stedolan/jq/releases/latest" | sed 's:.*/::')
             echo "Latest version of jq is $JQ_VERSION"
           else
@@ -91,8 +91,8 @@
               "$JQ_BINARY_URL"
           fi
 
-          $SUDO mv "$jqBinary" <<parameters.install-dir>>/jq
-          $SUDO chmod +x <<parameters.install-dir>>/jq
+          $SUDO mv "$jqBinary" ${INSTALL_DIR}/jq
+          $SUDO chmod +x ${INSTALL_DIR}/jq
 
           # cleanup
           [[ -d "./$JQ_VERSION" ]] && rm -rf "./$JQ_VERSION"

@@ -30,3 +30,7 @@ steps:
         command: << include(scripts/jq-install.sh) >>
         name: Install jq
         when: << parameters.when >>
+        environment:
+            INSTALL_DIR: << parameters.install_dir >>
+            OVERRIDE: << parameters.override >>
+            VERSION: << parameters.version >>

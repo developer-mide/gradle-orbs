@@ -1,3 +1,5 @@
+description: >
+     Auto deploy job
 parameters:
       env:
         type: string
