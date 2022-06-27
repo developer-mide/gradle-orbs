@@ -1,0 +1,20 @@
+description: >
+   Rerun job on requests.
+parameters:
+    job_name:
+       type: string
+    emoji:
+       type: string
+    environment_name:
+       type: string
+steps:
+   - run:
+       name: Rerun K8s job << parameters.job_name >>
+       command: << include(scripts/k8s-rerun-job.sh) >>
+   - run:
+       environment:
+            EMOJI: << parameters.emoji >>
+            SERVICE_NAME: << parameters.job_name >>
+            CLUSTER_NAME: << parameters.environment_name >>
+       name: Notify slack
+       command: << include(scripts/k8s-notify-slack)

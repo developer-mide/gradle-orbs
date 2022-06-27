@@ -1,0 +1,11 @@
+description: >
+    Kill  Job command
+parameters:
+  job_name:
+    type: string
+steps:
+  - run:
+      name: Kill job << parameters.job_name >> if its running
+      environment:
+        NAME: << parameters.job_name >>
+      command: << include(scripts/k8s-kill-job.sh) >>

@@ -1,0 +1,21 @@
+description: >
+     Autodeploy command to deploy to EKS
+parameters:
+    service_name:
+        type: string
+    environment_name:
+        type: string
+steps:
+    - run:
+        name: Restart service << parameters.service_name >>
+        environment:
+                SERVICE_NAME: << parameters.service_name >>
+                CLUSTER_NAME: << parameters.environment_name >>
+        command: << include(scripts/k8s-restart-service.sh) >>
+    - run:
+        environment:
+                EMOJI: ":rocket:"
+                SERVICE_NAME: << parameters.service_name >>
+                CLUSTER_NAME: << parameters.environment_name >>
+        name: Notify slack
+        command: << include(scripts/k8s-notify-slack.sh) >>

@@ -1,0 +1,21 @@
+description: >
+   Wait for job to complete
+parameters:
+  job_name:
+    type: string
+  timeout:
+    type: integer
+    default: 10
+    description: "The amount of time to wait for the job to complete."
+  namespace:
+    description: "The namespace the jobs are in"
+    type: string
+    default: "jobs"
+steps:
+  - run:
+      name: Wait for << parameters.job_name >> to complete.
+      environment:
+          JOB_NAME: << parameters.job_name >>
+          TIMEOUT: << parameters.timeout >>
+          NAMESPACE: << parameters.namespace >>
+      command: << include(scripts/k8s-await-job.sh) >>

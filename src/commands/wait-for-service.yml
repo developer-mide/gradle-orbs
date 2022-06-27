@@ -1,0 +1,19 @@
+description: >
+    Wait for service
+parameters:
+      service_name:
+               type: string
+      environment_name:
+               type: string
+      timeout:
+                type: integer
+                default: 5
+                description: "The amount of time to wait for the rollout to finish."
+steps:
+    - run:
+        name: Wait for << parameters.service_name >> to roll out.
+        environment:
+            SERVICE_NAME: << parameters.service_name >>
+            ENV_NAME: << parameters.environment_name >>
+            TIMEOUT: << parameters.timeout >>
+        command: << include(scripts/k8s-await-rollout.sh) >>
