@@ -1,0 +1,58 @@
+parameters:
+      env:
+        type: string
+        default: "dev"
+      env_id:
+        type: integer
+        default: 429158029891
+executor: aws-cli-default
+resource_class: small
+steps:
+      - shallow-checkout
+      - setup-kubectl:
+          environment_id: << parameters.env_id >>
+          environment_name: << parameters.env >>
+      - jq-install
+      #     Disabled e2e test due to memory utiliziation
+      #      - kill-job:
+      #          job_name: "e2e-system-test"
+      - kill-job:
+          job_name: "data-delivery-system-test"
+      - kill-job:
+          job_name: "etl-system-test"
+      - autodeploy-service:
+          service_name: "borrower"
+          environment_name: << parameters.env >>
+      - autodeploy-service:
+          service_name: "servicer"
+          environment_name: << parameters.env >>
+      - autodeploy-service:
+          service_name: "async-worker"
+          environment_name: << parameters.env >>
+      - autodeploy-service:
+          service_name: "dispatch"
+          environment_name: << parameters.env >>
+      - rerun-job:
+          job_name: "frontend-deployer-servicer"
+          emoji: ":sonic:"
+          environment_name: << parameters.env >>
+      - rerun-job:
+          job_name: "frontend-deployer-borrower"
+          emoji: ":sonic:"
+          environment_name: << parameters.env >>
+      - wait-for-service:
+          service_name: "borrower"
+          environment_name: << parameters.env >>
+      - wait-for-service:
+          service_name: "servicer"
+          environment_name: << parameters.env >>
+      - wait-for-service:
+          service_name: "async-worker"
+          environment_name: << parameters.env >>
+      - wait-for-service:
+          service_name: "dispatch"
+          environment_name: << parameters.env >>
+      - wait-for-job:
+          job_name: "frontend-deployer-servicer"
+      - wait-for-job:
+          job_name: "frontend-deployer-borrower"

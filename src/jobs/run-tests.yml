@@ -1,0 +1,28 @@
+parameters:
+      env:
+        type: string
+        default: "dev"
+      env_id:
+        type: integer
+        default: 429158029891
+resource_class: small
+executor: aws-cli-default
+steps:
+    - shallow-checkout
+    - setup-kubectl:
+          environment_id: << parameters.env_id >>
+          environment_name: << parameters.env >>
+    - jq-install
+    - rerun-job:
+          job_name: "data-delivery-system-test"
+          emoji: ":safety_vest:"
+          environment_name: << parameters.env >>
+    - rerun-job:
+          job_name: "etl-system-test"
+          emoji: ":safety_vest:"
+          environment_name: << parameters.env >>
+      #      Disabled e2e auto restart due to resource utilization
+      #      - rerun-job:
+      #          job_name: "e2e-system-test"
+      #          emoji: ":safety_vest:"
+      #          environment_name: << parameters.env >>

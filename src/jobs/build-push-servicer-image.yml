@@ -1,0 +1,14 @@
+description: >
+     Build push servicer image
+parameters:
+      tag:
+        type: string
+        default: "latest"
+executor: aws-cli-default
+working_directory: ~/project/backend/servicer-api
+steps:
+      - shallow-checkout
+      - build-and-push-backend-docker-image:
+          project: "servicer-api"
+          tag: << parameters.tag >>
+

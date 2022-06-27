@@ -1,0 +1,19 @@
+parameters:
+      tag:
+        type: string
+        default: "latest"
+executor: aws-cli-default
+working_directory: ~/project/backend/dispatch
+steps:
+      - shallow-checkout
+      - attach-workspace
+      - aws-cli-setup
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build docker image
+          environment:
+            REPOSITORY_URL: 838607676327.dkr.ecr.us-east-2.amazonaws.com/brace/dispatch
+            PW_STD_IN: 838607676327.dkr.ecr.us-east-2.amazonaws.com
+            TAG_SUFFIX: << parameters.tag >>
+          command: << include(scripts/ecr-build-image.sh) >>

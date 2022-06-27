@@ -1,0 +1,24 @@
+description: >
+     Push artifacts
+parameters:
+      tag:
+        type: string
+        default: "latest"
+executor: aws-cli-default
+resource_class: small
+steps:
+      - attach_workspace:
+           at: /tmp/workspace
+      - aws-cli-setup
+      - run:
+          name: Overwrite borrower << parameters.tag >> tar in the S3 bucket
+          environment:
+            ARCHIVE_BUCKET: "ai.brace.dev.frontend.builds"
+            ARCHIVE_NAME: "<< parameters.tag >>.tar.gz"
+          command: << include(scripts/ecr-overwrite-borrower.sh) >>
+      - run:
+          name: Overwrite servicer << parameters.tag >> tar in the S3 bucket
+          environment:
+            ARCHIVE_BUCKET: "ai.brace.dev.frontend.builds"
+            ARCHIVE_NAME: "<< parameters.tag >>.tar.gz"
+          command: << include(scripts/ecr-overwrite-servicer.sh) >>

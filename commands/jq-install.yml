@@ -1,0 +1,32 @@
+description: |
+      Install jq in a CircleCI job. Supports jq versions 1.3 and newer. Requirements: bash, curl, gpg, grep, sed, sha256sum, tar
+parameters:
+      install-dir:
+        default: ~/bin
+        description: |
+          Directory in which to install jq
+        type: string
+      override:
+        default: false
+        description: |
+          Whether or not to remove a pre-existing version of jq when this version
+          is installed.
+        type: boolean
+      version:
+        default: latest
+        description: |
+          Version of jq to install, defaults to `latest`. If specifying a version other than latest, provide a full release tag, as listed at https://api.github.com/repos/stedolan/jq/releases, e.g., `jq-1.6`.
+        type: string
+      when:
+        default: always
+        description: When to run the command.
+        enum:
+        - always
+        - on_fail
+        - on_success
+        type: enum
+steps:
+    - run:
+        command: << include(scripts/jq-install.sh) >>
+        name: Install jq
+        when: << parameters.when >>
