@@ -1,3 +1,5 @@
+description: >
+    Build push dispatch image
 parameters:
       tag:
         type: string

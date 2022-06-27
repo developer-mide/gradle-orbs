@@ -1,6 +1,6 @@
 #!/bin/bash
           # Quietly try to make the install directory.
-          mkdir -p << parameters.install-dir >> | true
+          mkdir -p ${INSTALL_DIR} | true
 
           # Selectively export the SUDO command, depending if we have permission
           # for a directory and whether we're running alpine.
