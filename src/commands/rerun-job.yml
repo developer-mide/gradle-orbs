@@ -17,4 +17,4 @@ steps:
             SERVICE_NAME: << parameters.job_name >>
             CLUSTER_NAME: << parameters.environment_name >>
        name: Notify slack
-       command: << include(scripts/k8s-notify-slack)
+       command: << include(scripts/k8s-notify-slack) >>
