@@ -42,7 +42,7 @@
 
           # extract version number
           JQ_VERSION_NUMBER_STRING=$(echo $JQ_VERSION | sed -E 's/-/ /')
-          arrJQ_VERSION_NUMBER=($JQ_VERSION_NUMBER_STRING)
+          arrJQ_VERSION_NUMBER="($JQ_VERSION_NUMBER_STRING)"
           JQ_VERSION_NUMBER="${arrJQ_VERSION_NUMBER[1]}"
 
           # Set binary download URL for specified version
@@ -82,7 +82,7 @@
 
             pushd "$JQ_VERSION/sig/v$JQ_VERSION_NUMBER" && grep "jq-$PLATFORM" "sha256sum.txt" | \
             sha256sum -c -
-            popd
+            popd || exit
             jqBinary="$JQ_VERSION/sig/v$JQ_VERSION_NUMBER/jq-$PLATFORM"
 
           else
@@ -98,6 +98,6 @@
           [[ -d "./$JQ_VERSION" ]] && rm -rf "./$JQ_VERSION"
 
           # verify version
-          echo "jq has been installed to $(which jq)"
+          jq -v
           echo "jq version:"
-          echo "$(jq --version)"
+          jq --version

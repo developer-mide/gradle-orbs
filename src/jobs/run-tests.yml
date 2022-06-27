@@ -1,3 +1,5 @@
+description: >
+     Run tests
 parameters:
       env:
         type: string
