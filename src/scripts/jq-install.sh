@@ -1,6 +1,6 @@
 #!/bin/bash
           # Quietly try to make the install directory.
-          mkdir -p ${INSTALL_DIR} | true
+         mkdir -p ${INSTALL_DIR} | xargs true
 
           # Selectively export the SUDO command, depending if we have permission
           # for a directory and whether we're running alpine.
