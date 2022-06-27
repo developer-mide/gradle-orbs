@@ -34,10 +34,10 @@
 
           # Set jq version
           if [[ ${VERSION} == "latest" ]]; then
-            JQ_VERSION=$(curl -Ls -o /dev/null -w %{url_effective} "https://github.com/stedolan/jq/releases/latest" | sed 's:.*/::')
+            JQ_VERSION="$(curl -Ls -o /dev/null -w %{url_effective} "https://github.com/stedolan/jq/releases/latest" | sed 's:.*/::')"
             echo "Latest version of jq is $JQ_VERSION"
           else
-            JQ_VERSION=<<parameters.version>>
+            JQ_VERSION="${VERSION}"
           fi
 
           # extract version number
