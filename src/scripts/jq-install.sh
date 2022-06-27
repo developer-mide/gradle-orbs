@@ -16,7 +16,7 @@
           fi
 
           echo 'export PATH=$PATH:${INSTALL_DIR}' >> $BASH_ENV
-          source $BASH_ENV
+          #source $BASH_ENV
 
           # check if jq needs to be installed
           if command -v jq >> /dev/null 2>&1; then
@@ -25,7 +25,7 @@
 
             if [[ ${OVERRIDE} == true ]]; then
               echo "removing it."
-              $SUDO rm -f $(command -v jq)
+              $SUDO rm -f "$(command -v jq)"
             else
               echo "ignoring install request."
               exit 0
@@ -34,7 +34,7 @@
 
           # Set jq version
           if [[ ${VERSION} == "latest" ]]; then
-            JQ_VERSION="$(curl -Ls -o /dev/null -w %{url_effective} "https://github.com/stedolan/jq/releases/latest" | sed 's:.*/::')"
+            JQ_VERSION=$(curl -Ls -o /dev/null -w "%{url_effective}" "https://github.com/stedolan/jq/releases/latest" | sed 's:.*/::')
             echo "Latest version of jq is $JQ_VERSION"
           else
             JQ_VERSION="${VERSION}"
