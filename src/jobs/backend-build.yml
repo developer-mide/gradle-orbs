@@ -13,7 +13,7 @@ steps:
   - setup-gradle-init
   - generate-gradle-seed
   - restore-gradle-cache
-      #See https://circleci.com/docs/2.0/databases/#using-dockerize-to-wait-for-dependencies
+      #See https://circleci.com/docs/2.0/databases/#using-dockerize-to-wait-for-dependencie
   - run:
       name: install dockerize
       command: << include(scripts/backend-build.sh) >>
